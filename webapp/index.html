@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <!-- Mobile meta tags-->
+        <meta name="HandheldFriendly" content="True">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    	<meta name="MobileOptimized" content="320"/>
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta http-equiv="cleartype" content="on">
+
+  
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/CountriesVisited_0.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+
+            if (e.target.feature.geometry.type === 'LineString') {
+              highlightLayer.setStyle({
+                color: '#ffff00',
+              });
+            } else {
+              highlightLayer.setStyle({
+                fillColor: '#ffff00',
+                fillOpacity: 1
+              });
+            }
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:13, minZoom:2
+        }).fitBounds([[-54.95466525232901,-80.43497112006776],[62.54695200468516,120.98210820108575]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        function pop_CountriesVisited_0(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>Name</strong><br />' + (feature.properties['Name'] !== null ? Autolinker.link(String(feature.properties['Name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Traveled</strong><br />' + (feature.properties['Traveled'] !== null ? Autolinker.link(String(feature.properties['Traveled'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Year of First Visit</strong><br />' + (feature.properties['Year of First Visit'] !== null ? Autolinker.link(String(feature.properties['Year of First Visit'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_CountriesVisited_0_0(feature) {
+            switch(String(feature.properties['Traveled'])) {
+                case 'True':
+                    return {
+                pane: 'pane_CountriesVisited_0',
+                opacity: 1,
+                color: 'rgba(111,111,111,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(178,223,138,1.0)',
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_CountriesVisited_0',
+                opacity: 1,
+                color: 'rgba(111,111,111,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(195,195,195,1.0)',
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_CountriesVisited_0');
+        map.getPane('pane_CountriesVisited_0').style.zIndex = 400;
+        map.getPane('pane_CountriesVisited_0').style['mix-blend-mode'] = 'normal';
+        var layer_CountriesVisited_0 = new L.geoJson(json_CountriesVisited_0, {
+            attribution: '',
+            pane: 'pane_CountriesVisited_0',
+            onEachFeature: pop_CountriesVisited_0,
+            style: style_CountriesVisited_0_0,
+        });
+        bounds_group.addLayer(layer_CountriesVisited_0);
+        map.addLayer(layer_CountriesVisited_0);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'Countries Visited<br /><table><tr><td style="text-align: center;"><img src="legend/CountriesVisited_0_True0.png" /></td><td>True</td></tr><tr><td style="text-align: center;"><img src="legend/CountriesVisited_0_False1.png" /></td><td>False</td></tr></table>': layer_CountriesVisited_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
