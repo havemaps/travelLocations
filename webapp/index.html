@@ -3,24 +3,27 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-        <!-- Mobile meta tags-->
+        <!-- Mobile meta tags to go in head-->
         <meta name="HandheldFriendly" content="True">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    	<meta name="MobileOptimized" content="320"/>
-    	<meta name="apple-mobile-web-app-capable" content="yes">
-    	<meta http-equiv="cleartype" content="on">
+        <meta name="MobileOptimized" content="320"/>
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta http-equiv="cleartype" content="on">
 
-  
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/leaflet.css">
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
-
         <style>
         html, body, #map {
             width: 100%;
             height: 100%;
             padding: 0;
             margin: 0;
+        }.leaflet-popup-content {
+        min-width: 125px;
+        min-height: 100px;
+        overflow-y: scroll;
         }
         </style>
         <title></title>
@@ -56,7 +59,7 @@
         }
         var map = L.map('map', {
             zoomControl:true, maxZoom:13, minZoom:2
-        }).fitBounds([[-54.95466525232901,-80.43497112006776],[62.54695200468516,120.98210820108575]]);
+        }).fitBounds([[-72.10948037749513,-137.26768667279813],[74.03160618665777,162.47233554933248]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
         var bounds_group = new L.featureGroup([]);
@@ -98,21 +101,16 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(178,223,138,1.0)',
+                fillColor: 'rgba(37,166,125,1.0)',
             }
                     break;
                 default:
                     return {
                 pane: 'pane_CountriesVisited_0',
-                opacity: 1,
-                color: 'rgba(111,111,111,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
+                stroke: false,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(195,195,195,1.0)',
+                fillColor: 'rgba(241,241,241,1.0)',
             }
                     break;
             }
@@ -129,7 +127,7 @@
         bounds_group.addLayer(layer_CountriesVisited_0);
         map.addLayer(layer_CountriesVisited_0);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'Countries Visited<br /><table><tr><td style="text-align: center;"><img src="legend/CountriesVisited_0_True0.png" /></td><td>True</td></tr><tr><td style="text-align: center;"><img src="legend/CountriesVisited_0_False1.png" /></td><td>False</td></tr></table>': layer_CountriesVisited_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'Countries Visited<br /><table><tr><td style="text-align: center;"><img src="legend/CountriesVisited_0_True0.png" /></td><td>True</td></tr><tr><td style="text-align: center;"><img src="legend/CountriesVisited_0_False1.png" /></td><td>False</td></tr></table>': layer_CountriesVisited_0,}).addTo(map);
         setBounds();
         </script>
     </body>
